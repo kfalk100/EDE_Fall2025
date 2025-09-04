@@ -1,7 +1,9 @@
 ---
-title: "Assignment 1: Introduction"
+title: 'Assignment 1: Introduction'
 author: "Kyle Falk"
-output: pdf_document
+output:
+  pdf_document: default
+  word_document: default
 ---
 
 ## OVERVIEW
