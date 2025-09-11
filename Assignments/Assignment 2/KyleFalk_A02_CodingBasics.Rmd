@@ -1,6 +1,6 @@
 ---
 title: "Assignment 2: Coding Basics"
-author: "Student Name"
+author: "Kyle Falk"
 output: pdf_document
 geometry: margin=2.54cm
 editor_options: 
@@ -32,10 +32,15 @@ This exercise accompanies the lessons/labs in Environmental Data Analytics on co
 
 ```{r basics 1}
 #1. 
+Sequence1 <-c(1,5,10,15,20,25,30,35,40,45,50,55)
 
 #2. 
+the_mean <- mean(Sequence1) #created term to calculate mean of Sequence1 using mean function
+
+the_median <- median(Sequence1) #created term to calculate median of Sequence1 using median function
 
 #3. 
+meanvsmedian <- the_mean>the_median #created term to compare mean and median using greater than
 
 ```
 
@@ -50,6 +55,12 @@ This exercise accompanies the lessons/labs in Environmental Data Analytics on co
 8.  Label the columns of your data frame with informative titles.
 
 ```{r basics 2}
+#5/6.
+NameVector <- c(Kyle,Kevin,Sean,Adam) #Character vector
+GradeVector <- c(100,90,95,95) #Number vector
+ScholarshipVector <- c(True,True,False,False) #Logical value vector
+
+#7.
 
 
 ```
