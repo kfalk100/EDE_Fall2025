@@ -33,14 +33,18 @@ This exercise accompanies the lessons/labs in Environmental Data Analytics on co
 ```{r basics 1}
 #1. 
 Sequence1 <-c(1,5,10,15,20,25,30,35,40,45,50,55) #Created term for Sequence1
+print(Sequence1)
 
 #2. 
 the_mean <- mean(Sequence1) #created term to calculate mean of Sequence1 using mean function
+print(the_mean)
 
 the_median <- median(Sequence1) #created term to calculate median of Sequence1 using median function
+print(the_median)
 
 #3. 
 meanvsmedian <- the_mean>the_median #created term to compare mean and median using greater than
+print(meanvsmedian)
 
 ```
 
@@ -65,12 +69,13 @@ is.data.frame(NameVector)
 is.data.frame(GradeVector)
 is.data.frame(ScholarshipVector)
 Correlation_of_Grades_and_Scholarships_at_Nicholas_School <- data.frame("Name"=NameVector,"Grade"=GradeVector,"Scholarship"=ScholarshipVector)
+print(Correlation_of_Grades_and_Scholarships_at_Nicholas_School)
 
 ```
 
 9.  QUESTION: How is this data frame different from a matrix?
 
-> Answer: A matrix contains 2 elements of the same type. This data frame has a characters, numbers, and logical values.
+> Answer: A matrix contains 2 elements of the same type. This data frame has a characters, numbers, and logical values, so it cannot be a matrix.
 
 10. Create a function with one input. In this function, use `if`...`else` to evaluate the value of the input: if it is greater than 50, print the word "Pass"; otherwise print the word "Fail". 
 
@@ -82,10 +87,12 @@ Correlation_of_Grades_and_Scholarships_at_Nicholas_School <- data.frame("Name"=N
 
 ```{r basics 3}
 #10. Create a function using if...else
+
 GradeComparison1 <- function(x){if(x>50){print("Pass")}
           else{print("Fail")}}
 
 #11. Create a function using ifelse()
+
 GradeComparison2 <- function(x){ifelse(x>50, "Pass", "Fail")}
 
 #12a. Run the first function with the value 52.5
@@ -99,6 +106,7 @@ output2 <- GradeComparison2(52.5)
 print(output2) #Pass
 
 #13a. Run the first function with the vector of test scores
+
 #output3 <- GradeComparison1(GradeVector)
 #print(output3)
 
