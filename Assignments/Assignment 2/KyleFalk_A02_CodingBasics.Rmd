@@ -32,7 +32,7 @@ This exercise accompanies the lessons/labs in Environmental Data Analytics on co
 
 ```{r basics 1}
 #1. 
-Sequence1 <-c(1,5,10,15,20,25,30,35,40,45,50,55)
+Sequence1 <-c(1,5,10,15,20,25,30,35,40,45,50,55) #Created term for Sequence1
 
 #2. 
 the_mean <- mean(Sequence1) #created term to calculate mean of Sequence1 using mean function
@@ -56,18 +56,21 @@ meanvsmedian <- the_mean>the_median #created term to compare mean and median usi
 
 ```{r basics 2}
 #5/6.
-NameVector <- c(Kyle,Kevin,Sean,Adam) #Character vector
-GradeVector <- c(100,90,95,95) #Number vector
-ScholarshipVector <- c(True,True,False,False) #Logical value vector
+NameVector <- c("Kyle","LeBron","John","Damian") #Character vector
+GradeVector <- c(100,45,60,95) #Number vector
+ScholarshipVector <- c(TRUE,TRUE,FALSE,FALSE) #Logical value vector
 
-#7.
-
+#7/8.
+is.data.frame(NameVector)
+is.data.frame(GradeVector)
+is.data.frame(ScholarshipVector)
+Correlation_of_Grades_and_Scholarships_at_Nicholas_School <- data.frame("Name"=NameVector,"Grade"=GradeVector,"Scholarship"=ScholarshipVector)
 
 ```
 
 9.  QUESTION: How is this data frame different from a matrix?
 
-> Answer:
+> Answer: A matrix contains 2 elements of the same type. This data frame has a characters, numbers, and logical values.
 
 10. Create a function with one input. In this function, use `if`...`else` to evaluate the value of the input: if it is greater than 50, print the word "Pass"; otherwise print the word "Fail". 
 
@@ -79,21 +82,35 @@ ScholarshipVector <- c(True,True,False,False) #Logical value vector
 
 ```{r basics 3}
 #10. Create a function using if...else
+GradeComparison1 <- function(x){if(x>50){print("Pass")}
+          else{print("Fail")}}
 
 #11. Create a function using ifelse()
+GradeComparison2 <- function(x){ifelse(x>50, "Pass", "Fail")}
 
 #12a. Run the first function with the value 52.5
 
+output1 <- GradeComparison1(52.5)
+print(output1) #Pass
+
 #12b. Run the second function with the value 52.5
 
+output2 <- GradeComparison2(52.5)
+print(output2) #Pass
+
 #13a. Run the first function with the vector of test scores
+#output3 <- GradeComparison1(GradeVector)
+#print(output3)
 
 #13b. Run the second function with the vector of test scores
+output4 <- GradeComparison2(GradeVector)
+print(output4)
+
 ```
 
 14. QUESTION: Which option of `if`...`else` vs. `ifelse` worked? Why? (Hint: search the web for "R vectorization")
 
-> Answer:
+> Answer: The second option, `ifelse` worked. This is because the function is vectorized, it is equipped to handle multiple conditions and applies operations to entire vectors simultaneously. The`if`...`else` function is not, meaning it applies to only one value at a time.
 
 
 **NOTE** Before knitting, you'll need to comment out the call to the function in Q13 that does not work. (A document can't knit if the code it contains causes an error!)
