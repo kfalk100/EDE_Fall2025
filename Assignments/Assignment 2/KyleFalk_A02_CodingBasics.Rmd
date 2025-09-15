@@ -118,7 +118,7 @@ print(output4)
 
 14. QUESTION: Which option of `if`...`else` vs. `ifelse` worked? Why? (Hint: search the web for "R vectorization")
 
-> Answer: The second option, `ifelse` worked. This is because the function is vectorized, it is equipped to handle multiple conditions and applies operations to entire vectors simultaneously. The`if`...`else` function is not, meaning it applies to only one value at a time.
+> Answer: The second option, `ifelse` worked. This is because the function is vectorized, it is equipped to handle multiple conditions and applies operations to entire vectors simultaneously. The `if`...`else` function is not, meaning it applies to only one value at a time.
 
 
 **NOTE** Before knitting, you'll need to comment out the call to the function in Q13 that does not work. (A document can't knit if the code it contains causes an error!)
