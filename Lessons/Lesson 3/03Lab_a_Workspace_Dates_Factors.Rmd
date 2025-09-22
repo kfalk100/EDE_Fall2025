@@ -3,6 +3,8 @@ title: "Lab 3b - Workspaces, Dates, and Factors"
 author: "Environmental Data Analytics | John Fay and Luana Lima "
 date: "Fall 2025"
 output: pdf_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ## Objectives
@@ -79,11 +81,21 @@ print(filenames)
 ```{r here in action}
 
 # 1. Read the 'NTL-LTER_Lake_ChemistryPhysics_Raw.csv' into a dataframe
-
+NTL_Data <- read.csv(
+  file=here('Data','Raw','NTL-LTER_Lake_ChemistryPhysics_Raw.csv'),
+  stringsAsFactors = TRUE
+)
 
 # 2.
+## Import Libraries
 library(tidyverse);library(here)
-
+here()
+folder <- here('Data', 'Raw')
+files <- dir(folder, pattern = "EPAair_O3", full.names = TRUE)
+files
+EPAData <- files %>%
+map(read_csv) %>%
+bind_rows()
 ```
 
 ---
@@ -133,8 +145,10 @@ date_obj_today
 
 #Ex_3 - on your own...
 str_juneteenth <- "19 June 1865"
-#date_juneteenth <- ()
-#date_juneteenth
+date_juneteenth <- (dmy(str_juneteenth <- "19 June 1865"))
+date_juneteenth
+
+class(date_juneteenth)
 ```
 ### The century issue
 
@@ -172,12 +186,15 @@ fixed_date_obj_past
 str_past <- "55-feb-3"
 
 #Alternative 1
-date_obj_past <- fast_strptime(str_past,"%y-%b-%d",cutoff_2000=24L)
+date_obj_past <- fast_strptime(str_past,"%y-%b-%d",cutoff_2000=25L)
 date_obj_past
+#Bigger than 25, begin with 19 instead of 20
 
 #Alternative 2
-date_obj_past2 <- parse_date_time2(str_past,"ymd",cutoff_2000=24L)
+date_obj_past2 <- parse_date_time2(str_past,"ymd",cutoff_2000=25L)
 date_obj_past2
+
+#Bigger than 25, begin with 19 instead of 20
 
 #Functions ymd(), mdy(), ydm() do not take argument cutoff_2000
 ```
@@ -207,6 +224,8 @@ dim(sites)
 #Convert date column to date object
 sites$date <- ymd_hms(sites$date)
 
+#aside from date info, have minute and second info - ymd_hms
+
 ```
 
 
@@ -218,14 +237,22 @@ Note: `wday` is a `lubridate()` function...
 #Compute the day of the week each sample was collected 
 sites$dow <- wday(sites$date)
 
+
+
 ## What class is the dow column?
 class(sites$dow)
+#Numeric, but not necessarily. Countiung days of week
+
 
 #List the unique values in the column
 unique(sites$dow)
 
+
+
 #Summary - is it meaningful?
 summary(sites$dow)
+
+#Recorded as factor, not real number. Not meaningful
 
 ```
 
@@ -237,12 +264,15 @@ sites$dow <- factor(sites$dow)
 
 ## What class is the dow column now?
 class(sites$dow)
+#Now factor
 
 #List the unique values in the column
 unique(sites$dow)
 
 #Summary - is it meaningful?
 summary(sites$dow)
+
+#Much more relevant - tells us most days are 4th day of the week.
 
 #Show the levels associated with our factor column
 levels(sites$dow)
@@ -340,7 +370,11 @@ usgs_flow_data$month <- month(usgs_flow_data$datetime)
 
 
 #Plot
-
+ggplot(usgs_flow_data,aes(x=month)) + 
+    geom_bar() + 
+  scale_x_datetime(
+    
+  )
 
 ```
 

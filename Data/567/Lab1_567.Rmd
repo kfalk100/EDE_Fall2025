@@ -1,0 +1,54 @@
+---
+title: "Spatial Ecology Lab Exercise 1"
+author: "Kyle Falk"
+date: "Fall 2025"
+output: pdf_document
+geometry: margin=2.54cm
+editor_options: 
+  chunk_output_type: console
+---
+
+#Setting up Working Directory
+```{r}
+
+library(ggplot2)
+library(here)
+library(dplyr)
+
+getwd()
+
+#install packages if not already installed
+if(!require(terra)) install.packages("terra")
+if(!require(dplyr)) install.packages("dplyr")
+if(!require(ggplot2)) install.packages("ggplot2")
+
+#load required packages
+library(terra) #load 'terra' for raster/spatial analysis
+library(dplyr) #load 'dplyr' for data manipulation
+library(ggplot2) #load 'ggplot2' for plotting
+library(ggridges) #load 'ggridges' for ridgeline plots (good for visualizing distributions, e.g., DOY patterns)
+library(purrr) #load 'purrr' for functional programming tools (map, map_dfr, etc. useful for batch processing)
+
+```
+
+
+#Load Raster
+``` {r}
+
+#let's try to read the data in 2022
+
+getwd()
+setwd("/home/guest/ENV 567/Spatial_Fall2025/Lab Exercises/h027v011/h027v011")
+
+#read the disturbance agent raster. Each pixel value represents the type of disturbance agent.
+agent_2022 <- rast("./CD_027011_2022_C01/CD_027011_2022_C01_AGENT.tif")
+
+#read the disturbance severity raster. Each pixel value indicates the severity level of the disturbance.
+severity_2022 <- rast("./CD_027011_2022_C01/CD_027011_2022_C01_SEVERITY.tif")
+
+#read the disturbance time raster. Each pixel value represents the day of year of disturbance occurrence.
+time_2022 <- rast("./CD_027011_2022_C01/CD_027011_2022_C01_TIME.tif")
+
+
+
+
