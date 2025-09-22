@@ -85,6 +85,8 @@ dim(Neonics)
 
 ```{r Q6}
 summary(Neonics$Effect)
+sort(table(Neonics$Effect), decreasing = TRUE
+)
 
 ```
 
@@ -115,7 +117,7 @@ class(Neonics$Conc.1..Author.)
 
 ```{r Q9}
 ggplot(data = Neonics, aes(x = Publication.Year)) +
-  geom_freqpoly(aes(x = Publication.Year), bins = 50) 
+  geom_freqpoly()
 
 ```
 
@@ -123,24 +125,13 @@ ggplot(data = Neonics, aes(x = Publication.Year)) +
 
 ```{r Q10}
 
-Testlocationvector <- as.vector(Neonics$Test.Location)
-numericlocationvector <- as.numeric(Testlocationvector)
-names(numericlocationvector) <- c("Field artificial", "Field natural", "Field undeterminable", "Lab")
-
-ggplot(data = Neonics, aes(x = Publication.Year)) +
-  geom_freqpoly(aes(x = Publication.Year), bins = 50) +
-  geom_freqpoly(aes(x = numericlocationvector), bins = 4) +
-  scale_color_manual(values = c("Lab" = "blue",
-                                "Field artificial" = "red",
-                                "Field natural" = "green",
-                                "Field undeterminable" = "yellow"))
-                              
-
+ggplot(data = Neonics, aes(x = Publication.Year, color = Test.Location)) +
+  geom_freqpoly()
 ```
 
 Interpret this graph. What are the most common test locations, and do they differ over time?
 
-> Answer:
+> Answer: Lab and field natural are the most common test locations. Over time, both of these increase, with lab seeing a massive increase between 2010 and 2020.
 
 11. Create a bar graph of Endpoint counts. What are the two most common end points, and how are they defined? Consult the ECOTOX_CodeAppendix for more information. 
 
@@ -181,21 +172,29 @@ summary(Litter$plotID)
 14. Create a bar graph of functionalGroup counts. This shows you what type of litter is collected at the Niwot Ridge sites. Notice that litter types are fairly equally distributed across the Niwot Ridge sites.
 
 ```{r Q14}
-
+ggplot(data = Litter, aes(x = functionalGroup)) +
+  geom_bar() +
+  labs(x="Litter Type",y="Count")
 
 ```
 
 15. Using `geom_boxplot` and `geom_violin`, create a boxplot and a violin plot of dryMass by functionalGroup.
 
 ```{r Q15}
+ggplot(data = Litter, aes(x=dryMass, y=functionalGroup)) +
+  geom_boxplot() +
+  labs(x="Dry Mass", y="Litter Type")
 
+ggplot(data = Litter, aes(x=dryMass, y=functionalGroup)) +
+  geom_violin() +
+  labs(x="Dry Mass", y="Litter Type")
 
 ```
 
 Why is the boxplot a more effective visualization option than the violin plot in this case?
 
-> Answer:
+> Answer: In this case, a boxplot is more effective as it showcases quartile values and IQR, as well as outliers. Additionally, the median is shown, which is particularly helpful for analyzing data. A violin plot shows the lowest and highest values and where the values are most concentrated. But for this situation, the densities do not provide much more background to the data.
 
 What type(s) of litter tend to have the highest biomass at these sites?
 
-> Answer:
+> Answer: Needles have the highest biomass, with mixed litter having the next highest. 
