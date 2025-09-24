@@ -144,13 +144,16 @@ NTL.phys.data.depth.descending <- arrange(NTL.phys.data, desc(depth))
 
 # Exercise: 
 # Arrange NTL.phys.data by temperature, in descending order. 
+NTL.phys.data.descending <- arrange(NTL.phys.data, desc(`temperature_C`))
 # Which dates, lakes, and depths have the highest temperatures?
-
-
+# 1998, 2002, 1995
+# East Long Lake and Hummingbird lake
+# 0.5 and 0.0
 ```
 ### Select
 
-Selecting allows us to choose certain columns (variables) in our dataset.
+Selecting allows us to choose certain columns (variables) in our dataset. IN RESPECT TO COLUMNS
+Colon - range of columns
 
 ```{r selecting columns}
 NTL.phys.data.temps <- select(NTL.phys.data, lakename, sampledate:temperature_C)
@@ -178,7 +181,7 @@ NTL.phys.data.PeterPaul1 <- select(NTL.phys.data.PeterPaul1, lakeid:daynum, mont
 
 # find out the start and end dates of the dataset
 interval(NTL.phys.data.PeterPaul1$sampledate[1], NTL.phys.data.PeterPaul1$sampledate[21613])
-interval(first(NTL.phys.data.PeterPaul1$sampledate), last(NTL.phys.data.PeterPaul1$sampledate))
+interval(first(NTL.phys.data.PeterPaul1$sampledate), last(NTL.phys.data.PeterPaul1$sampledate)) # Same thing
 ```
 
 
@@ -193,7 +196,7 @@ NTL.phys.data.processed <-
   NTL.phys.data %>%
   filter(lakename == "Paul Lake" | lakename == "Peter Lake") %>%
   select(lakename, sampledate:temperature_C) %>%
-  mutate(temperature_F = (temperature_C*9/5) + 32)
+  mutate(temperature_F = (temperature_C*9/5) + 32) #one step instead of three
   
 ```
 
