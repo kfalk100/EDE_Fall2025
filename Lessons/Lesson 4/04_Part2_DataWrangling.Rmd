@@ -85,6 +85,8 @@ However, there may be situations where we want to reshape our dataset, for examp
 
 We will work with the new functions from `tidyr`. For gather we will use `pivot_longer` and for spread we will use `pivot_wider`. Note that if you are familiar with `gather` and `spread` will may still use it, they are not going away, but they are not under active development.
 
+Pivot wider takes values from one column and turns them into headers
+
 ```{r gather and spread}
 # Gather nutrient data into one column
 #NTL.nutrient.data.PeterPaul.gathered <- gather(NTL.nutrient.data.PeterPaul.subset, "nutrient", "concentration", tn_ug:po4)
@@ -109,6 +111,8 @@ NTL.nutrient.data.PeterPaul.spread2 <- pivot_wider(NTL.nutrient.data.PeterPaul.g
 NTL.nutrient.data.PeterPaul.dates <- separate(NTL.nutrient.data.PeterPaul.subset, sampledate, c("Y", "m", "d"))
 
 # I recommend using lubridate rather than separate and unite.
+
+#Exercise 5 Gather irradiance 
 
 ```
 

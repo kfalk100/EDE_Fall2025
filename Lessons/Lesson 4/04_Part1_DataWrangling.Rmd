@@ -7,6 +7,19 @@ editor_options:
   chunk_output_type: console
 ---
 
+#Poll
+Chain multiple operations on a data frame - pipe
+Subset/rearrange columns in dataframe - select (columns)
+To calculate new values from existing ones - mutate
+To subset rows based on criteria - filter (rows)
+Sort rows based on value - arrange
+Vignette - documentation
+
+#Shortcuts
+Alt and - gives <-
+Shift control M gives %>%
+Shift alt I gives new line 
+
 ## Objectives
 1. Describe the usefulness of data wrangling and its place in the data pipeline
 2. Wrangle datasets with dplyr functions
@@ -40,6 +53,11 @@ class(NTL.phys.data$sampledate)
 NTL.phys.data$sampledate <- as.Date(NTL.phys.data$sampledate, format = "%m/%d/%y")
 class(NTL.phys.data$sampledate)
 ```
+
+dplyr vs tidyverse
+  - dplyr is tidy version of plyr
+  - tidyverse imports number of packages, including dplyr and ggplot, one that allows us to do pipes
+  
 
 ## Data Wrangling
 
@@ -104,7 +122,8 @@ dim(NTL.phys.data.surface3)
 
 # Choose multiple conditions to filter
 summary(NTL.phys.data$lakename)
-NTL.phys.data.PeterPaul1 <- filter(NTL.phys.data, lakename == "Paul Lake" | lakename == "Peter Lake") #either paul or peter lake
+NTL.phys.data.PeterPaul1 <- filter(NTL.phys.data, lakename == "Paul Lake" | lakename == "Peter Lake") #either paul or peter lake filtering
+NTL.phys.data.PeterPaul4 <- filter(NTL.phys.data, lakename %in% c("Paul Lake", "Peter Lake"))
 NTL.phys.data.PeterPaul2 <- filter(NTL.phys.data, lakename != "Central Long Lake" & 
                                      lakename != "Crampton Lake" & lakename != "East Long Lake" &
                                      lakename != "Hummingbird Lake" & lakename != "Tuesday Lake" &
@@ -124,15 +143,42 @@ NTL.phys.data.JunethruOctober4 <- filter(NTL.phys.data, daynum %in% c(152:304))
 # filter NTL.phys.data for the year 1999
 # what code do you need to use, based on the class of the variable?
 class(NTL.phys.data$year4)
+#integer
+NTL.phys.data.year4 <- filter(NTL.phys.data, year4 == 1999)
+# OR
+NTL.phys.data.year4 <- NTL.phys.data %>% filter(year4 == 1999)
 
 # Exercise: 
 # filter NTL.phys.data for Tuesday Lake from 1990 through 1999.
+NTL.phys.data.Tuesday <- filter(NTL.phys.data, lakename == "Tuesday Lake", year4 >=1990 & year4 <=1999)
+# OR
+NTL.phys.data.Tuesday <- NTL.phys.data %>% 
+  filter(
+    lakename == "Tuesday Lake",
+    year4 %in% c(1990:1999)
+  )
 
+# comma and & work the same here for filtering - adding another filter
+# THIS | is OR
 
+## Use pipes to wrangle data
+
+NTL.phys.data.TuesdayJuly <- NTL.phys.data %>% 
+  filter(
+    lakename == "Tuesday Lake",
+      year4 %in% c(1990:1999),
+      month(sampledate) ==7)
+
+# Use summarize function from the above to find mean surface area
+
+summary(NTL.phys.data.TuesdayJuly)
 ```
+Filter then summaries
+  Debugging pipe - select UP TO first pipe, run that. If that works, do it again until error is given. 
+
 Question: Why don't we filter using row numbers?
 
-> Answer: 
+> Answer: Row numbers change all the time. ALSO - Not what we are looking for, columns organize the values
 
 ### Arrange
 
