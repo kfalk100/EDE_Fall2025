@@ -86,10 +86,16 @@ EPAair.PM25.2018.AQ <- select(EPAair.PM25.2018, Date, DAILY_AQI_VALUE:Site.Name,
 EPAair.PM25.2019.AQ <- select(EPAair.PM25.2019, Date, DAILY_AQI_VALUE:Site.Name, AQS_PARAMETER_DESC, COUNTY:SITE_LONGITUDE)
 
 #5
-EPAair.PM25.2018.AQ <- 
-EPAair.PM25.2019.AQ <- 
+EPAair.PM25.2018.AQ <- EPAair.PM25.2018.AQ %>%
+  mutate(AQS_PARAMETER_DESC = "PM2.5")
+EPAair.PM25.2019.AQ <- EPAair.PM25.2019.AQ %>%
+  mutate(AQS_PARAMETER_DESC = "PM2.5")
 
 #6
+write.csv(EPAair.O3.2018.AQ, row.names = FALSE, file = "./Data/Processed/EPAair_O3_NC2018_processed.csv")
+write.csv(EPAair.O3.2019.AQ, row.names = FALSE, file = "./Data/Processed/EPAair_O3_NC2019_processed.csv")
+write.csv(EPAair.PM25.2018.AQ, row.names = FALSE, file = "./Data/Processed/EPAair_PM25_NC2018_processed.csv")
+write.csv(EPAair.PM25.2019.AQ, row.names = FALSE, file = "./Data/Processed/EPAair_PM25_NC2019_processed.csv")
 
 ```
 
@@ -123,19 +129,34 @@ EPAair.PM25.2019.AQ <-
 
 ```{r questions 7 thru 11}
 #7 
-
+EPAair <- rbind(EPAair.O3.2018.AQ, EPAair.O3.2019.AQ, EPAair.PM25.2018.AQ, EPAair.PM25.2019.AQ)
 
 #8 
+EPAair <- EPAair %>% 
+  filter(Site.Name %in% c("Linville Falls", "Durham Armory", "Leggett", "Hattie Avenue",  
+  "Clemmons Middle", "Mendenhall School", "Frying Pan Mountain", 
+  "West Johnston Co.", "Garinger High School", "Castle Hayne", 
+  "Pitt Agri. Center", "Bryson City", "Millbrook School")) %>% 
+  mutate(Month = month(Date), Year = year(Date)) %>% 
+  group_by(Date, Month, Year, Site.Name, AQS_PARAMETER_DESC, COUNTY) %>% 
+  filter(!is.na(DAILY_AQI_VALUE) & !is.na(SITE_LATITUDE) & !is.na(SITE_LONGITUDE)) %>% 
+  summarise(MeanAQI = mean(DAILY_AQI_VALUE),
+           MeanLat = mean(SITE_LATITUDE),
+           MeanLong = mean(SITE_LONGITUDE),
+  .groups = "drop"
+  )
 
+dim(EPAair)
 
 #9
-
+EPAair <- EPAair %>% 
+  pivot_wider(names_from = AQS_PARAMETER_DESC, values_from = MeanAQI)
 
 #10
-
+dim(EPAair)
 
 #11
-
+write.csv(EPAair, row.names = FALSE,file = "./Data/Processed/EPAair_O3_PM25_NC1819_processed.csv")
 
 ```
 
@@ -149,15 +170,19 @@ EPAair.PM25.2019.AQ <-
 ```{r questions 12 and 13}
 
 #12
-
+EPAAirSummary <- EPAair %>% 
+  group_by(Site.Name, Month, Year) %>% 
+  summarise(MeanAQI_PM2.5 = mean(PM2.5),
+            MeanAQI_O3 = mean(Ozone)) %>% 
+  drop_na(MeanAQI_O3)
 
 #13
-
+dim(EPAAirSummary)
 
 
 ```
 
 14. Why did we use the function `drop_na` rather than `na.omit`? Hint: replace `drop_na` with `na.omit` in part 12 and observe what happens with the dimensions of the summary date frame.
 
-> Answer: 
+> Answer: Na.omit removes entire rows where an NA is present, no matter what column it is in. Drop_na just removes rows with an NA of the variable of interest to us. In this case, we still want to see the ozone values for rows that might have an NA for PM2.5.
 
