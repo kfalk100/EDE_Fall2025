@@ -142,8 +142,7 @@ EPAair <- EPAair %>%
   filter(!is.na(DAILY_AQI_VALUE) & !is.na(SITE_LATITUDE) & !is.na(SITE_LONGITUDE)) %>% 
   summarise(MeanAQI = mean(DAILY_AQI_VALUE),
            MeanLat = mean(SITE_LATITUDE),
-           MeanLong = mean(SITE_LONGITUDE),
-  .groups = "drop"
+           MeanLong = mean(SITE_LONGITUDE)
   )
 
 dim(EPAair)
