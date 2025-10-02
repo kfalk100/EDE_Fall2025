@@ -200,15 +200,16 @@ Nutrientplot7 <-
   ggplot(PeterPaul.chem.nutrients.gathered) +
   geom_freqpoly(aes(x = concentration, color = nutrient))
 print(Nutrientplot7)
+# adds legend to coloration, unlike previous example which just has tn_ug on x axis and no legend
 
 # Frequency polygons have the risk of becoming spaghetti plots. 
 # See <https://www.data-to-viz.com/caveat/spaghetti.html> for more info.
 
 # Ridgeline plot
 Nutrientplot6 <-
-  ggplot(PeterPaul.chem.nutrients.gathered, aes(y = nutrient, x = concentration)) +
-  geom_density_ridges(aes(fill = lakename), alpha = 0.5) #
+  ggplot(PeterPaul.chem.nutrients.gathered, aes(y = nutrient, x = concentration)) + # y is nutrient to put length of graph on y axis
+  geom_density_ridges(aes(fill = lakename), alpha = 0.5) # # fill used to make lake name area under the plot, different color for each lake
 print(Nutrientplot6)
 
-
+/
 ```
