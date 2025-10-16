@@ -1,0 +1,12 @@
+name: PeterPaulApp_Full
+title: PeterPaulApp_Full
+username: kfalk100
+account: kfalk100
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 15712619
+bundleId: 11014340
+url: https://kfalk100.shinyapps.io/PeterPaulApp_Full/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

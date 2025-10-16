@@ -1,0 +1,23 @@
+---
+title: "YAML"
+subtitle: "How to"
+author: "Kyle Falk"
+date: "2025-10-16"
+output: pdf_document
+toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r}
+
+
+```
+
+## R Markdown
+### Sub-header
+### Another, smaller sub-header (not in toc)
+
+# toc - table of contents

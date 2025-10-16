@@ -1,0 +1,18 @@
+---
+title: Interactive Rmd
+output: html_document
+runtime: shiny
+---
+  
+```{r, echo = FALSE}
+numericInput("n",# Widget, interface
+"How many cars?", 5)
+
+
+renderTable({ # Code that listens to input and plots/calculates accordingly 
+head(cars, input$n) # Based off of title, "n"
+  
+})
+
+```
+
