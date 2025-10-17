@@ -180,8 +180,8 @@ makes new page on knit document Better to have blank white space than
 figures that span multiple pages
 
 # is headings
-
-More is smaller \> is block quotes
+More is smaller 
+> is block quotes
 
 Ordered and unordered lists 1. Step 1 2. Step 2 3. Step 3 \# Need at
 least one space between . and words
