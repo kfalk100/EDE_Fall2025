@@ -129,7 +129,7 @@ ozone2018plot <- ozone2018 %>%
   labs(
     title = "Monthly Ozone Concentrations (2018)",
     x = "Month",
-    y = "Ozone (µg/m^3)") +
+    y = expression(paste("Concentration ",  (µg/m^{3})))) +
   scale_x_discrete(labels=month.abb)
   
 ozone2018plot
@@ -148,7 +148,7 @@ ozone2019plot <- ozone2019 %>%
   labs(
     title = "Monthly Ozone Concentrations (2019)",
     x = "Month",
-    y = "Ozone (µg/m^3)") +
+    y = expression(paste("Concentration ",  (µg/m^{3})))) +
   scale_x_discrete(labels=month.abb)
   
 ozone2019plot
