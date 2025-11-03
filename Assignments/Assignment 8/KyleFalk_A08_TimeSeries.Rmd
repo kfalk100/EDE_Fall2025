@@ -1,6 +1,6 @@
 ---
 title: "Assignment 8: Time Series Analysis"
-author: "Student Name"
+author: "Kyle Falk"
 date: "Fall 2025"
 output: pdf_document
 geometry: margin=2.54cm
@@ -46,16 +46,26 @@ theme_set(my_theme)
 
 ```{r, message = FALSE}
 #1
-Ozone_2010 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2010_raw.csv"), stringsAsFactors = TRUE)
-Ozone_2011 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2011_raw.csv"), stringsAsFactors = TRUE)
-Ozone_2012 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2012_raw.csv"), stringsAsFactors = TRUE)
-Ozone_2013 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2013_raw.csv"), stringsAsFactors = TRUE)
-Ozone_2014 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2014_raw.csv"), stringsAsFactors = TRUE)
-Ozone_2015 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2015_raw.csv"), stringsAsFactors = TRUE)
-Ozone_2016 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2016_raw.csv"), stringsAsFactors = TRUE)
-Ozone_2017 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2017_raw.csv"), stringsAsFactors = TRUE)
-Ozone_2018 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2018_raw.csv"), stringsAsFactors = TRUE)
-Ozone_2019 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2019_raw.csv"), stringsAsFactors = TRUE)
+Ozone_2010 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2010_raw.csv"), 
+                       stringsAsFactors = TRUE)
+Ozone_2011 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2011_raw.csv"), 
+                       stringsAsFactors = TRUE)
+Ozone_2012 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2012_raw.csv"), 
+                       stringsAsFactors = TRUE)
+Ozone_2013 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2013_raw.csv"), 
+                       stringsAsFactors = TRUE)
+Ozone_2014 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2014_raw.csv"), 
+                       stringsAsFactors = TRUE)
+Ozone_2015 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2015_raw.csv"), 
+                       stringsAsFactors = TRUE)
+Ozone_2016 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2016_raw.csv"), 
+                       stringsAsFactors = TRUE)
+Ozone_2017 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2017_raw.csv"), 
+                       stringsAsFactors = TRUE)
+Ozone_2018 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2018_raw.csv"), 
+                       stringsAsFactors = TRUE)
+Ozone_2019 <- read.csv(here("Data/Raw/Ozone_TimeSeries/EPAair_O3_GaringerNC2019_raw.csv"), 
+                       stringsAsFactors = TRUE)
 
 GaringerOzone <- full_join(Ozone_2010, Ozone_2011) %>% 
   full_join(Ozone_2012) %>% 
@@ -164,8 +174,12 @@ GaringerOzone.monthly <- left_join(Months, GaringerOzone.monthly) %>%
 
 ```{r}
 #10
-GaringerOzone.daily.ts <- ts(GaringerOzoneInterpolation$DailyPPM.Clean, start = c(2010,1,1), frequency = 365)
-GaringerOzone.monthly.ts <- ts(GaringerOzone.monthly$Monthly_AveragePPM, start = c(2010,1,1), frequency = 12)
+GaringerOzone.daily.ts <- ts(GaringerOzoneInterpolation$DailyPPM.Clean, 
+                             start = c(2010,1,1), 
+                             frequency = 365)
+GaringerOzone.monthly.ts <- ts(GaringerOzone.monthly$Monthly_AveragePPM, 
+                               start = c(2010,1,1), 
+                               frequency = 12)
 ```
 
 
