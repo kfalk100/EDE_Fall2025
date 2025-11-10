@@ -262,7 +262,7 @@ mapview(Washington_county,
 mapview(Washington_county_20km_intersect,
           col.regions="white",
           layer.name="Gage Sites within 20 km of Washington County",
-          alpha.regions=0.5) +
+          alpha.regions=0.25) +
 mapview(Washington_county_intersect,
           col.regions="black",
           layer.name="Gage Sites in Washington County") +
