@@ -62,7 +62,7 @@ First, we'll read in our EPA air quality sites, much like as we did in the previ
 
 ```{r convert.tabular.data.to.sf.object}
 #Read our EPA points into a spatial dataframe
-epa_pm25_sites_sf <- read_csv(here('ENV 872/EDE_Fall2025/Data/Raw/EPAair_PM25_NC2018_raw.csv')) %>% 
+epa_pm25_sites_sf <- read_csv(here('Data/Raw/EPAair_PM25_NC2018_raw.csv')) %>% 
   group_by(`Site Name`, COUNTY, SITE_LATITUDE, SITE_LONGITUDE) %>% 
   summarize(
     meanPM = mean(`Daily Mean PM2.5 Concentration`,na.rm=T),
@@ -91,7 +91,7 @@ Below we read in the USA counties shapefile, filtering for just the NC features 
 
 ```{r read.filtered.records.from.shapefile.to.sf.object}
 #Read the shapefile into an sf dataframe named counties_sf, filtering for NC only
-counties_sf<- st_read(here('ENV 872/EDE_Fall2025/Data/Spatial/cb_2018_us_county_20m.shp')) %>% 
+counties_sf<- st_read(here('Data/Spatial/cb_2018_us_county_20m.shp')) %>% 
   filter(STATEFP == 37) #Filter for just NC Counties
 
 #Reveal the column names
@@ -116,7 +116,7 @@ mapView(counties_sf)
 
 ```{r read HUCs shapefile}
 #Read the shapefile into an sf dataframe named "huc8_sf"
-huc8_sf <- st_read(here('ENV 872/EDE_Fall2025/Data/Spatial/NCHUC8.shp'))
+huc8_sf <- st_read(here('Data/Spatial/NCHUC8.shp'))
 
 #Reveal the column names
 colnames(huc8_sf)
@@ -136,20 +136,26 @@ mapview(huc8_sf, zcol="ACRES")
 
 ```{r Select the Upper Neuse HUC 8}
 #Read the shapefile into an sf dataframe
-huc8_sf2 <- st_read(here('ENV 872/EDE_Fall2025/Data/Spatial/NCHUC8.shp')) %>% 
-  filter(SUBBASIN == "Upper Neuse")
-mymap2 = mapview(huc8_sf2,
-                 col.regions = "yellow",
-                 map.types = "CartoDB.Positron",
-                 legend = FALSE)
+upper_neuse_sf <- st_read(here("./Data/Spatial/NCHUC8.shp")) %>% 
+  filter(SUBBASIN == 'Upper Neuse')
 
 #Create a map
-mymap2
-mymap2 + mapview(huc8_sf)
+mapview(
+  huc8_sf,
+  col.regions='gray'
+  ) +
+  mapview(
+    upper_neuse_sf,
+    col.regions='yellow',
+    color = 'blue'
+  )
 
-```
+ggplot() + 
+  geom_sf(data = huc8_sf,color='gray') + 
+  geom_sf(data = upper_neuse_sf, color='blue', fill='yellow')
 
 ---
+```
 
 # 3. WORKING WITH SPATIAL DATA
 
@@ -222,18 +228,29 @@ ggplot() +
   - Also, use the mutate function to compute HUC8 as the first 8 characters of the HUC12 field: see the `substr()` function. 
 
 ```{r}
-#Import data, setting HUC_12 to be factors, and computing a HUC_8 column
-HUC_12sf <- read_csv("https://raw.githubusercontent.com/ENV859/EnviroAtlasData/main/Wind_Energy.csv")
-HUC_12sf$HUC_12 <- as.factor(HUC_12sf$HUC_12)
-HUC_12sf <- HUC_12sf %>% 
-  mutate(HUC_12sf, HUC_8 = substr())
-  group_by(HUC_12)
+#Compute HUC8 wind energy
+wind_raw <- read.csv(
+  'https://raw.githubusercontent.com/ENV859/EnviroAtlasData/main/Wind_Energy.csv',
+  colClasses = c('HUC_12'='factor')
+  ) %>%  
+  mutate(huc_8 = substr(HUC_12, 0, 8)) %>% 
+  group_by(huc_8) %>% 
+  summarize(
+    WindEnergy = sum(AvgWindEnergy)
+  )
+
   
 #Join to HUC_8 features
-
+huc8_wind_sf <- huc8_sf %>% 
+  left_join(wind_raw,by=c('HUC_8'='huc_8'))
 
 #View the outputs
-
+ggplot() + 
+  geom_sf(data=huc8_wind_sf,aes(fill=WindEnergy))+
+  labs(
+    title = "Wind Energy by HUC 8",
+    fill = 'MW/year'
+  )
 
 ```
 
